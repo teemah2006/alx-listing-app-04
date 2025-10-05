@@ -31,7 +31,14 @@ export interface PropertyProps {
       occupants: string
     },
     image: StaticImageData | string,
-    discount: string
+    discount: string,
+    description: string,
+    reviews: {
+      name: string,
+      avatar: StaticImageData | string,
+      rating: number,
+      comment: string,
+    }[]
   }
 
 

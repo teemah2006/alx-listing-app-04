@@ -5,11 +5,12 @@ import STAR_IMAGE from "@/public/assets/icons/star.png"
 import React from "react"
 import Pill from "./Pill"
 import { PropertyProps } from "@/interfaces"
+import { useRouter } from "next/router";
 
 const Card: React.FC<PropertyProps> = ({ name, address, rating, category, price, offers, image, discount }) => {
-
+  const router = useRouter()
  return (
-    <div className="h-[422px] w-[378.56px] cursor-pointer hover:shadow-md hover:rounded-lg my-4">
+    <div className="h-[422px] w-[380px] cursor-pointer hover:shadow-md hover:rounded-lg  p-4" onClick={() => router.push(`/property/${name}`)}>
       <Image className="rounded-lg" src={image} width={378.56} height={299.37} alt="house image" />
       <div className="p-2 flex gap-2 mt-2">
         {category.map((cat) => (
