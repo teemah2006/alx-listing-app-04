@@ -37,7 +37,7 @@ export default function PropertyPage() {
     <div className="">
       <PropertyDetail property={property} />
 
-      <ReviewSection reviews={property.reviews} />
+      <ReviewSection propertyId={id} />
     </div>
   );
 }

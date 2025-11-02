@@ -39,6 +39,13 @@ export interface PropertyProps {
     }[]
   }
 
+export interface reviewProps{
+      name: string,
+      avatar: StaticImageData | string,
+      rating: number,
+      comment: string,
+}
+
 interface CardProps {
   property: PropertyProps,
 }
