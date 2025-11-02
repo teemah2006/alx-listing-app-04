@@ -1,8 +1,6 @@
 import { StaticImageData } from "next/image";
 
-interface CardProps {
-  
-}
+
 
 export interface PillProps {
     title: string;
@@ -41,5 +39,8 @@ export interface PropertyProps {
     }[]
   }
 
+interface CardProps {
+  property: PropertyProps,
+}
 
 export type { CardProps, ButtonProps };

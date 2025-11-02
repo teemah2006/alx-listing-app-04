@@ -1,22 +1,42 @@
 import { HEROIMAGE } from "@/constants";
 import Image from "next/image";
 import Pill from "@/components/common/Pill";
-import {PROPERTYLISTINGSAMPLE} from "@/constants";
 import Card from "@/components/common/Card";
-import { useState } from "react";
+import axios from "axios";
+import { useState,  useEffect } from "react";
+import { PropertyProps } from "@/interfaces";
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [properties, setProperties] = useState<PropertyProps[]| []>([]);
+  const [loading, setLoading] = useState(true);
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
   };
 
   const categoryList = ["All", "Top villa", "Free Reschedule", "Book Now, Pay later", "Self Checkin", "Instant Book"];
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const response = await axios.get("/api/properties");
+        setProperties(response.data);
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchProperties();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   const filteredProperties = selectedCategory === "All"
-    ? PROPERTYLISTINGSAMPLE
-    : PROPERTYLISTINGSAMPLE.filter(property =>
+    ? properties
+    : properties.filter(property =>
         property.category.includes(selectedCategory)
       );
   return (
@@ -43,16 +63,7 @@ export default function Home() {
         {filteredProperties.map((property, index) => (
           <Card
             key={index}
-            name={property.name}
-            address={property.address}
-            rating={property.rating}
-            category={property.category}
-            price={property.price}
-            offers={property.offers}
-            image={property.image}
-            discount={property.discount}
-            description={property.description}
-            reviews={property.reviews}
+            property={property}
           />
         ))}
       </div>
